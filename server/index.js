@@ -4,6 +4,7 @@ const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const keys = require("./config/keys");
+var favicon = require("serve-favicon");
 require("./models/User");
 require("./models/Survey");
 require("./services/passport");
@@ -39,6 +40,9 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
+
+var app = connect();
+app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
