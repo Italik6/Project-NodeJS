@@ -3,7 +3,7 @@ import SurveyForm from "./SurveyForm";
 
 class SurveyNew extends Component {
   render() {
-    return
+    return;
     <div>
       <SurveyForm />
     </div>;
