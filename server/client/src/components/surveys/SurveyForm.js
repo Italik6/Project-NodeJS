@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
+import { Link } from "react-router-dom";
 import SurveyField from "./SurveyField";
 import _ from "lodash";
 
@@ -14,22 +15,46 @@ class SurveyForm extends Component {
   renderFields() {
     return _.map(FIELDS, ({ label, name }) => {
       return (
-        <Field component={SurveyField} type="text" label={label} name={name} />
+        <Field
+          key={name}
+          component={SurveyField}
+          type="text"
+          label={label}
+          name={name}
+        />
       );
     });
   }
+
   render() {
     return (
       <div>
         <form onSubmit={this.propshandleSubmit(values => console.log(values))}>
           {this.renderFields()}
-          <button type="submit">Submit</button>
+          <Link to="/surveys" className="red btn-flat white-text">
+            Cancel
+          </Link>
+          <button type="submit" className="teal btn-flat right white-text">
+            Next
+            <i className="material-icons right">Done</i>
+          </button>
         </form>
       </div>
     );
   }
 }
 
+function validate(values) {
+    const errors = {};
+
+    if (!values.title) {
+        errors.title = "You must provide a title";
+    }
+
+    return errors;
+}
+
 export default reduxForm({
+  validate,
   form: "surveyForm"
 })(SurveyForm);
