@@ -1,10 +1,11 @@
+import _ from "lodash";
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { Link } from "react-router-dom";
 import SurveyField from "./SurveyField";
-import _ from "lodash";
 import validateEmails from "../../utils/validateEmails";
 import formFields from "./formFields";
+
 class SurveyForm extends Component {
   renderFields() {
     return _.map(formFields, ({ label, name }) => {
@@ -30,7 +31,7 @@ class SurveyForm extends Component {
           </Link>
           <button type="submit" className="teal btn-flat right white-text">
             Next
-            <i className="material-icons right">Done</i>
+            <i className="material-icons right">done</i>
           </button>
         </form>
       </div>
