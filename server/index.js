@@ -7,6 +7,8 @@ const keys = require("./config/keys");
 require("./models/User");
 require("./models/Survey");
 require("./services/passport");
+const favicon = require("serve-favicon");
+const path = require("path");
 
 mongoose.Promise = global.Promise;
 mongoose.connect(
@@ -29,6 +31,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(favicon(path.join(__dirname, "client", "public", "favicon.ico")));
 
 require("./routes/authRoutes")(app);
 require("./routes/billingRoutes")(app);
