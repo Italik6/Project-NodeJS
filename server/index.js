@@ -4,14 +4,19 @@ const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const keys = require("./config/keys");
-const favicon = require("serve-favicon");
-const path = require("path");
 require("./models/User");
 require("./models/Survey");
 require("./services/passport");
 
 mongoose.Promise = global.Promise;
-mongoose.connect(keys.mongoURI);
+mongoose.connect(
+  keys.mongoURI,
+  {
+    keepAlive: true,
+    reconnectTries: Number.MAX_VALUE,
+    useMongoClient: true
+  }
+);
 
 const app = express();
 
@@ -24,7 +29,6 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 
 require("./routes/authRoutes")(app);
 require("./routes/billingRoutes")(app);
